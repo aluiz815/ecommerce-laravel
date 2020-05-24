@@ -18,3 +18,8 @@ Route::redirect('/','/home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/carrinho', 'CarrinhoController@index')->name('carrinho.index')->middleware('auth');
+Route::get('/add-to-carrinho/{produto}', 'CarrinhoController@add')->name('carrinho.add')->middleware('auth');
+Route::get('/carrinho/destroy/{produto}', 'CarrinhoController@destroy')->name('carrinho.destroy')->middleware('auth');
+Route::get('/carrinho/update/{produto}', 'CarrinhoController@update')->name('carrinho.update')->middleware('auth');
+

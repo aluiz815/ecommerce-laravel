@@ -12,9 +12,10 @@
          <div class="card-body">
              <h4 class="card-title">Title</h4>
              <p class="card-text">Text</p>
+             <h3>R${{$produto->price}}</h3>
          </div>
          <div class="card-body">
-             <a href="#" class="card-link">Adicionar ao carrinho</a>
+             <a href="{{route('carrinho.add', $produto->id)}}" class="card-link">Adicionar ao carrinho</a>
          </div>
      </div>
     </div>

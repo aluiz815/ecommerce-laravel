@@ -38,6 +38,22 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('carrinho.index') }}">
+                                    Carrinho
+                                    <div class="badge badge-danger">
+                                    @auth
+                                    {{Cart::session(auth()->id())->getContent()->count()}}
+                                    @else
+                                    0
+                                    @endauth
+                                    </div>
+                                </a>
+
+                            </li>
+
+
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -72,7 +88,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 container">
             @yield('content')
         </main>
     </div>
