@@ -4,9 +4,6 @@
 @section('content')
 
     <h2>Seu Carrinho</h2>
-
-
-
         <table class="table">
             <thead>
                 <tr>
@@ -25,7 +22,7 @@
                         </td>
                         <td>
                             <form action="{{route('carrinho.update',$itemcarrinho->id)}}">
-                                <input name="quantity" type="number" value={{$itemcarrinho->quantity}}>
+                                <input name="quantity" type="number" value="{{$itemcarrinho->quantity}}">
                                 <input type="submit" value="save">
                             </form>
                         </td>
@@ -39,5 +36,5 @@
     Preço Total:  R${{\Cart::session(auth()->id())->getTotal()}}
 </h3>
 
-<a class="btn btn-primary" href="#" role="button">Finalizar Compra</a>
+<a class="btn btn-primary" href="{{route('carrinho.checkout')}}" role="button">Finalizar Compra</a>
 @endsection()

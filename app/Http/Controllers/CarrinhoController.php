@@ -12,7 +12,7 @@ class CarrinhoController extends Controller
             'id' => $produto->id,
             'name' => $produto->name,
             'price' => $produto->price,
-            'quantity' => 4,
+            'quantity' => 1,
             'attributes' => array(),
             'associatedModel' => $produto
         ));
@@ -38,5 +38,9 @@ class CarrinhoController extends Controller
             )
         ]);
         return back();
+    }
+    public function checkout()
+    {
+        return view('carrinho.checkout');
     }
 }

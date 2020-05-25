@@ -5,13 +5,12 @@
     <h2>Produtos</h2>
     <div class="row">
     @foreach ($produtos as $produto)
-
     <div class="col-4">
      <div class="card">
          <img class="card-img-top" src="{{ asset('default.jpg') }}" alt="Card image cap">
          <div class="card-body">
-             <h4 class="card-title">Title</h4>
-             <p class="card-text">Text</p>
+             <h4 class="card-title">{{$produto->title}}</h4>
+             <p class="card-text">{{$produto->description}}</p>
              <h3>R${{$produto->price}}</h3>
          </div>
          <div class="card-body">
@@ -19,7 +18,6 @@
          </div>
      </div>
     </div>
-
     @endforeach
     </div>
 </div>
