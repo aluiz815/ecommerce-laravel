@@ -6,8 +6,6 @@
 <h3>Informações</h3>
 <form action="{{route('pedido.store')}}" method="post">
     @csrf
-
-
     <div class="form-group">
         <label for="">Nome Completo</label>
         <input type="text" name="shipping_fullname" id="" class="form-control">
@@ -42,7 +40,7 @@
 
     <div class="form-check">
         <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="metodo_pagamento" id="" value="cash_on_delivery">
+            <input type="radio" class="form-check-input" name="metodo_pagamento" value="dinheiro">
             Dinheiro
         </label>
 
@@ -50,7 +48,7 @@
 
     <div class="form-check">
         <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="metodo_pagamento" id="" value="paypal">
+            <input type="radio" class="form-check-input" name="metodo_pagamento" value="paypal">
             Paypal
         </label>
 

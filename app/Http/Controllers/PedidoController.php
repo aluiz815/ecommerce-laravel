@@ -42,11 +42,11 @@ class PedidoController extends Controller
             'shipping_address' => 'required',
             'shipping_phone' => 'required',
             'shipping_zipcode' => 'required',
-            'payment_method' => 'required',
+            'metodo_pagamento' => 'required',
         ]);
 
         $pedido= new Pedido();
-        $pedido->order_number = uniqid('OrderNumber-');
+        $pedido->pedido_id = uniqid('OrderNumber-');
 
         $pedido->shipping_fullname = $request->input('shipping_fullname');
         $pedido->shipping_state = $request->input('shipping_state');
@@ -102,7 +102,7 @@ class PedidoController extends Controller
         //send email to customer
 
 
-        return redirect()->route('home')->withMessage('Order has been placed');
+        return redirect()->route('home')->withMessage('Pedido Realizado');
     }
 
     /**
