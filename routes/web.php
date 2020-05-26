@@ -36,3 +36,8 @@ Route::get('results','PaypalController@results')->name('paypal.results');
 
 
 
+
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
