@@ -28,5 +28,11 @@ Route::get('/carrinho/checkout', 'CarrinhoController@checkout')->name('carrinho.
 /*Rotas Pedidos*/
 Route::resource('/pedido', 'PedidoController')->middleware('auth');
 
+/*Rotas Pagamento*/
+Route::get('paypal/checkout','PaypalController@checkout')->name('paypal.checkout');
+Route::get('paypal/status','PaypalController@status')->name('paypal.status');
+Route::get('paypal/failed','PaypalController@failed')->name('paypal.failed');
+Route::get('results','PaypalController@results')->name('paypal.results');
+
 
 
