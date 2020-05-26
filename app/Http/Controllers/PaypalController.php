@@ -13,7 +13,7 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\PaymentExecution;
 use PayPal\Auth\OAuthTokenCredential;
 use Illuminate\Support\Facades\Config;
-
+use App\Pedido;
 class PaypalController extends Controller
 {
     private $apiContext;
@@ -29,7 +29,7 @@ class PaypalController extends Controller
         );
     }
 
-    public function checkout()
+    public function checkout($pedidoId)
     {
         $payer = new Payer();
         $payer->setPaymentMethod('paypal');
@@ -41,7 +41,7 @@ class PaypalController extends Controller
         $transaction = new Transaction();
         $transaction->setAmount($amount);
         //$transaction->setDescription('')
-        $callbackUrl = url('paypal/status');
+        $callbackUrl = url('paypal/status',compact('pedidoId'));
         $redirectUrls = new RedirectUrls();
         $redirectUrls->setReturnUrl($callbackUrl)
             ->setCancelUrl($callbackUrl);
@@ -60,14 +60,14 @@ class PaypalController extends Controller
             echo $ex->getData();
         }
     }
-    public function status(Request $request)
+    public function status(Request $request,$pedidoId)
     {
         $paymentId = $request->input('paymentId');
         $payerId = $request->input('PayerID');
         $token = $request->input('token');
         if(!$paymentId || !$payerId || !$token ){
-            $status = "Uma Pena Pagamento com paypal error";
-            return redirect()->route('paypal.failed')->with(compact('status'));
+            $statusError = "Uma Pena Pagamento com paypal error";
+            return redirect()->route('paypal.failed')->with(compact('statusError'));
         }
         $payment = Payment::get($paymentId,$this->apiContext);
 
@@ -77,11 +77,14 @@ class PaypalController extends Controller
         $result = $payment->execute($execution,$this->apiContext);
 
         if($result->getState() === 'approved'){
-            $status = "Parabens Pagamento com paypal sucesso";
-            return redirect('results')->with(compact('status'));
+            $statusAprovado = "Parabens, compra realizada com sucesso, Obrigado por confiar e volte sempre";
+            $pedido = Pedido::find($pedidoId);
+            $pedido->esta_pago = 1;
+            $pedido->save();
+            return redirect('results')->with(compact('statusAprovado'));
         }
-        $status = "Uma Pena Pagamento com paypal error";
-        return redirect('results')->with(compact('status'));
+        $statusError = "Uma Pena Pagamento com paypal error";
+        return redirect('results')->with(compact('statusError'));
     }
     public function failed()
     {
