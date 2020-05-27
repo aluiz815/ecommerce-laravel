@@ -8,6 +8,6 @@ class Pedido extends Model
 {
     public function items()
     {
-        return $this->belongsToMany(Produto::class, 'itens_pedido','pedido_id','produto_id');
+        return $this->belongsToMany(Produto::class, 'itens_pedido','pedido_id','produto_id')->withPivot('quantity','price');
     }
 }

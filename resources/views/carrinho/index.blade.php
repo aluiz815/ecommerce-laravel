@@ -23,7 +23,7 @@
                         <td>
                             <form action="{{route('carrinho.update',$itemcarrinho->id)}}">
                                 <input name="quantity" type="number" value="{{$itemcarrinho->quantity}}">
-                                <input type="submit" value="save">
+                                <input type="submit" value="salvar">
                             </form>
                         </td>
                         <td><a href="{{route('carrinho.destroy',$itemcarrinho->id)}}">Deletar</a></td>

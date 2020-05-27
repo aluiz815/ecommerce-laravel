@@ -73,6 +73,7 @@ class PedidoController extends Controller
 
 
         $pedido->grand_total = \Cart::session(auth()->id())->getTotal();
+
         $pedido->item_qty = \Cart::session(auth()->id())->getContent()->count();
 
         $pedido->user_id = auth()->id();

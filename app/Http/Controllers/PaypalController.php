@@ -81,6 +81,7 @@ class PaypalController extends Controller
             $pedido = Pedido::find($pedidoId);
             $pedido->esta_pago = 1;
             $pedido->save();
+            \Cart::session(auth()->id())->clear();
             return redirect('results')->with(compact('statusAprovado'));
         }
         $statusError = "Uma Pena Pagamento com paypal error";
