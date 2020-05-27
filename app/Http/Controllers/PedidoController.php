@@ -91,16 +91,16 @@ class PedidoController extends Controller
         }
 
 
-        //payment
+        //redirecionamento para o paypal
         if(request('metodo_pagamento') == 'paypal') {
                 //redirect to paypal
             return redirect()->route('paypal.checkout', $pedido->id);
 
         }
 
-        //empty cart
+        //Limpar Carrinho
         \Cart::session(auth()->id())->clear();
-        //send email to customer
+       
 
 
         return redirect()->route('home')->withMessage('Pedido Realizado');
