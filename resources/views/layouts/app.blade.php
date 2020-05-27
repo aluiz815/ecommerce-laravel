@@ -82,8 +82,13 @@
                                     </form>
                                 </div>
                             </li>
+
                         @endguest
                     </ul>
+                    @auth
+                    <img class="rounded  w-25" src="storage/{{Auth::user()->avatar}}" alt="avatar">
+                    @else
+                    @endauth
                 </div>
             </div>
         </nav>

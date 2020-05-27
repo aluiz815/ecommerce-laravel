@@ -7,7 +7,7 @@
     @foreach ($produtos as $produto)
     <div class="col-4">
      <div class="card">
-         <img class="card-img-top" src="{{ asset('default.jpg') }}" alt="Card image cap">
+         <img class="card-img-top" src="storage/{{$produto->cover_img}}" alt="Card image cap">
          <div class="card-body">
              <h4 class="card-title">{{$produto->title}}</h4>
              <p class="card-text">{{$produto->description}}</p>
@@ -20,5 +20,7 @@
     </div>
     @endforeach
     </div>
+    <p class="mt-5">{{$produtos->links()}}</p>
+
 </div>
 @endsection
