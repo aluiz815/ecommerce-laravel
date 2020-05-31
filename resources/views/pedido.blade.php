@@ -23,13 +23,13 @@
                     <td>{{$produto->pivot->quantity}}</td>
                     @foreach($pedidos as $pedido)
                     @if($pedido->status === 'completo')
-                    <td class="btn btn-success">{{$pedido->status}}</td>
+                    <td class="rounded btn-success">{{$pedido->status}}</td>
                     @elseif($pedido->status === 'pendente')
-                    <td class="btn btn-primary">{{$pedido->status}}</td>
+                    <td class="rounded btn-primary">{{$pedido->status}}</td>
                     @elseif($pedido->status === 'processando')
-                    <td class="btn btn-primary">{{$pedido->status}}</td>
+                    <td class="rounded btn-primary">{{$pedido->status}}</td>
                     @else
-                    <td class="btn btn-danger">{{$pedido->status}}</td>
+                    <td class="rounded btn-danger">{{$pedido->status}}</td>
                     @endif
                     @endforeach
                     <td><img  class="card-img-top w-25" src="storage/{{$produto->cover_img}}" alt=""></td>
