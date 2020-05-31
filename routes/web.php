@@ -27,7 +27,6 @@ Route::get('/carrinho/checkout', 'CarrinhoController@checkout')->name('carrinho.
 
 /*Rotas Pedidos*/
 Route::resource('/pedido', 'PedidoController')->middleware('auth');
-
 /*Rotas Pagamento*/
 Route::get('paypal/checkout/{pedido}','PaypalController@checkout')->name('paypal.checkout');
 Route::get('paypal/status/{pedido}','PaypalController@status')->name('paypal.status');
@@ -37,7 +36,7 @@ Route::get('results','PaypalController@results')->name('paypal.results');
 
 
 
-
+/*ROTAS DA BIBLIOTECA VOYAGER  */
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

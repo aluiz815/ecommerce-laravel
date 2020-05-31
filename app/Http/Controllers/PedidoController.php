@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Pedido;
+use App\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
@@ -14,9 +16,14 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
+        $pedidos = Pedido::where('user_id','=',auth()->id())->paginate(10);
+        if($pedidos[0] === null){
+            $produtos = null;
+            return view('pedido',compact('pedidos','produtos'));
+        }
+        $produtos = Pedido::find($pedidos[0]->id)->items()->paginate(10);
+        return view('pedido',compact('pedidos','produtos'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +31,7 @@ class PedidoController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
