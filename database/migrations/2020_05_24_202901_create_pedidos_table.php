@@ -21,7 +21,7 @@ class CreatePedidosTable extends Migration
             $table->float('grand_total');
             $table->integer('item_qty');
             $table->boolean('esta_pago')->default(false);
-            $table->enum('metodo_pagamento', ['dinheiro', 'paypal','stripe','card'])->default('dinheiro');
+            $table->enum('metodo_pagamento', ['dinheiro', 'paypal'])->default('dinheiro');
 
             $table->string('shipping_fullname');
             $table->string('shipping_address');
