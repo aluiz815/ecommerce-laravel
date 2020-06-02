@@ -26,9 +26,12 @@ Instalação:
 
 6: Rodar o comando do tcg voyager php artisan voyager:install --with-dummy
 
-7: Rodar o comando para dar permissao de admin ao usuario que ja deve ter sido cadastrado antes php artisan voyager:admin seu@email.com
+7: Rodar o comando para dar permissao de admin ao usuario que ja deve ter sido cadastrado antes:
+php artisan voyager:admin seu@email.com
 
-8: Opcional: Rodar o comando php artisan voyager:admin seu@email.com --create aonde ele ira criar um usuario admin e ira pedir para você
+8: Opcional: Rodar o comando:
+php artisan voyager:admin seu@email.com --create.
+Aonde ele ira criar um usuario admin e ira pedir para você
 falar um nome de usuario e senha
 
 9: Configuracao do TCG VOYAGER
