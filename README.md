@@ -33,4 +33,4 @@ falar um nome de usuario e senha
 
 9: Configuracao do TCG VOYAGER
 
-VIDEO:
+VIDEO:https://www.youtube.com/watch?v=Qh4DOS2uIAM
