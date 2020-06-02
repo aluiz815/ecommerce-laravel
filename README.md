@@ -24,7 +24,8 @@ Instalação:
 
 5: Opcional: Roda seed de produtos, porem ira sem imagem, mas podendo ser alterado no tcg voyager futuramente
 
-6: Rodar o comando do tcg voyager php artisan voyager:install --with-dummy
+6: Rodar o comando do tcg voyager:
+php artisan voyager:install --with-dummy
 
 7: Rodar o comando para dar permissao de admin ao usuario que ja deve ter sido cadastrado antes:
 php artisan voyager:admin seu@email.com
