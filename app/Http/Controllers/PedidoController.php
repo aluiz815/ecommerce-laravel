@@ -9,11 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $pedidos = Pedido::where('user_id','=',auth()->id())->paginate(10);
@@ -24,24 +20,10 @@ class PedidoController extends Controller
         $produtos = Pedido::find($pedidos[0]->id)->items()->paginate(10);
         return view('pedido',compact('pedidos','produtos'));
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
+        //Validacao dos dados
         $request->validate([
             'shipping_fullname' => 'required',
             'shipping_state' => 'required',
@@ -51,17 +33,18 @@ class PedidoController extends Controller
             'shipping_zipcode' => 'required',
             'metodo_pagamento' => 'required',
         ]);
-
+        //criando Pedido
         $pedido= new Pedido();
+        //Dados do pedido
         $pedido->pedido_id = uniqid('OrderNumber-');
-
+    
         $pedido->shipping_fullname = $request->input('shipping_fullname');
         $pedido->shipping_state = $request->input('shipping_state');
         $pedido->shipping_city = $request->input('shipping_city');
         $pedido->shipping_address = $request->input('shipping_address');
         $pedido->shipping_phone = $request->input('shipping_phone');
         $pedido->shipping_zipcode = $request->input('shipping_zipcode');
-
+    
         if(!$request->has('billing_fullname')) {
             $pedido->billing_fullname = $request->input('shipping_fullname');
             $pedido->billing_state = $request->input('shipping_state');
@@ -78,21 +61,21 @@ class PedidoController extends Controller
             $pedido->billing_zipcode = $request->input('billing_zipcode');
         }
 
-
+        
         $pedido->grand_total = \Cart::session(auth()->id())->getTotal();
 
         $pedido->item_qty = \Cart::session(auth()->id())->getContent()->count();
 
         $pedido->user_id = auth()->id();
-
+        
         if (request('metodo_pagamento') == 'paypal') {
             $pedido->metodo_pagamento = 'paypal';
         }
-
+        //Salvando Pedido no BD
         $pedido->save();
-
+        //Pegando os itens do Carrinho
         $cartItems = \Cart::session(auth()->id())->getContent();
-
+        //Percorrendo os itens e salvando na tabela pivot
         foreach($cartItems as $item) {
             $pedido->items()->attach($item->id, ['price'=> $item->price, 'quantity'=> $item->quantity]);
         }
@@ -100,7 +83,6 @@ class PedidoController extends Controller
 
         //redirecionamento para o paypal
         if(request('metodo_pagamento') == 'paypal') {
-                //redirect to paypal
             return redirect()->route('paypal.checkout', $pedido->id);
 
         }
@@ -113,48 +95,4 @@ class PedidoController extends Controller
         return redirect()->route('home')->withMessage('Pedido Realizado');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Pedido  $pedido
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pedido $pedido)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Pedido  $pedido
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Pedido $pedido)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Pedido  $pedido
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pedido $pedido)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Pedido  $pedido
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pedido $pedido)
-    {
-        //
-    }
 }
